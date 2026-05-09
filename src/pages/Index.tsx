@@ -2,63 +2,80 @@ import { useState, useEffect, useCallback } from "react";
 import Icon from "@/components/ui/icon";
 
 const IMAGES = {
-  hero: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/files/35749c5d-3d47-4a24-9e9e-cd2b1ec2b595.jpg",
+  hero: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/bucket/7965e2ce-93d5-4aff-b4ce-fd992af58323.png",
+  machines: [
+    {
+      src: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/bucket/7965e2ce-93d5-4aff-b4ce-fd992af58323.png",
+      title: "ЧПУ-фрезер 2000×3000 мм",
+      desc: "Большой портальный станок для листовых материалов",
+    },
+    {
+      src: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/bucket/641327c9-e8ec-4ad4-b227-dd75a67b3dd5.jpg",
+      title: "Фрезерный ЧПУ 2000×3000×150 мм",
+      desc: "Профессиональный станок для серийного производства",
+    },
+    {
+      src: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/bucket/d3e6f8ac-1ec7-49e5-a733-c65387928521.png",
+      title: "Настольный ЧПУ-фрезер",
+      desc: "Точная обработка малых деталей и гравировка",
+    },
+  ],
   catalog: [
     {
       id: 1,
       src: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/files/352da83d-a6a5-4609-bfe4-4ad155f769b9.jpg",
       title: "Обеденный стол из дуба",
       category: "Мебель",
-      desc: "Массив дуба, ручная обработка, масло-воск",
+      desc: "Фрезеровка по CNC, массив дуба, масло-воск",
     },
     {
       id: 2,
       src: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/files/7fd065e3-95aa-4b78-8e7e-3231e2ffff97.jpg",
       title: "Стеллаж книжный",
       category: "Мебель",
-      desc: "Берёза + металл, открытые полки",
+      desc: "ЧПУ-раскрой, берёза + металл",
     },
     {
       id: 3,
       src: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/files/b85eb9f2-b097-4183-9bc0-8bb42d1ddbb0.jpg",
       title: "Разделочная доска из ореха",
       category: "Кухня",
-      desc: "Американский орех, пищевое масло",
+      desc: "Фигурная фрезеровка, американский орех",
     },
     {
       id: 4,
       src: "https://cdn.poehali.dev/projects/abd754a0-df0f-4474-9470-75cdc014dcc0/files/da679bca-4d67-43f6-af9e-e900feed51b0.jpg",
       title: "Кресло из ясеня",
       category: "Мебель",
-      desc: "Массив ясеня, льняная обивка",
+      desc: "Детали вырезаны на ЧПУ, массив ясеня",
     },
   ],
 };
 
 const SERVICES = [
   {
-    icon: "Sofa",
-    title: "Мебель на заказ",
-    desc: "Столы, стулья, шкафы, кровати — любая мебель по вашим размерам и эскизам. От чертежа до готового изделия.",
-    price: "от 15 000 ₽",
+    icon: "LayoutGrid",
+    title: "Фрезеровка по дереву",
+    desc: "Точная фигурная резка любой сложности на ЧПУ-станках. Фанера, МДФ, массив — работаем с любым материалом по вашим файлам или эскизам.",
+    price: "от 500 ₽/м²",
   },
   {
-    icon: "Utensils",
-    title: "Кухонные изделия",
-    desc: "Разделочные доски, подносы, посуда из натурального дерева. Покрытие пищевым маслом, безопасно для еды.",
-    price: "от 1 500 ₽",
+    icon: "Type",
+    title: "Гравировка и надписи",
+    desc: "Логотипы, имена, узоры — фрезеруем на глубину с точностью до 0,1 мм. Сувениры, таблички, декор, корпоративные подарки.",
+    price: "от 300 ₽",
   },
   {
-    icon: "Gift",
-    title: "Подарки с гравировкой",
-    desc: "Именные изделия, корпоративные сувениры, свадебные подарки с лазерной гравировкой.",
-    price: "от 2 000 ₽",
+    icon: "Layers",
+    title: "Серийное производство",
+    desc: "Раскрой и фрезеровка крупных партий. Детали мебели, фасады, конструктивные элементы — стабильное качество в каждой детали.",
+    price: "по запросу",
   },
   {
-    icon: "Paintbrush",
-    title: "Реставрация",
-    desc: "Восстановление старой мебели, замена деталей, перекраска, обновление покрытия.",
-    price: "от 3 000 ₽",
+    icon: "FileCode",
+    title: "Работа по файлам заказчика",
+    desc: "Принимаем DXF, SVG, Corel, AutoCAD. Если файла нет — разработаем конструктив и управляющую программу сами.",
+    price: "от 1 000 ₽",
   },
 ];
 
@@ -185,16 +202,16 @@ const Index = () => {
             <div className="relative z-10 h-full flex flex-col justify-end pb-20 px-8 md:px-16 max-w-6xl mx-auto">
               <div className="animate-fade-in" style={{ animationDelay: "0.2s", opacity: 0 }}>
                 <p className="font-body text-wood-200/70 text-xs tracking-[0.3em] uppercase mb-4">
-                  Авторская мастерская
+                  ЧПУ-фрезерная мастерская
                 </p>
                 <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light text-wood-50 leading-none mb-6">
-                  Дерево,
+                  Точность
                   <br />
-                  <em className="italic">ожившее</em>
-                  <br />в руках
+                  <em className="italic">станка,</em>
+                  <br />душа дерева
                 </h1>
                 <p className="font-body text-wood-200/80 text-base md:text-lg max-w-md mb-10 leading-relaxed font-light">
-                  Создаём мебель и изделия из массива дерева. Каждый предмет — единственный в своём роде.
+                  Фрезеруем на ЧПУ-станках по дереву, фанере и МДФ. Любая сложность — от единичного изделия до серийного производства.
                 </p>
                 <div className="flex gap-4 flex-wrap">
                   <button
@@ -218,9 +235,9 @@ const Index = () => {
           <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
             <div className="grid md:grid-cols-3 gap-12 md:gap-20">
               {[
-                { num: "12+", label: "лет опыта" },
-                { num: "300+", label: "выполненных заказов" },
-                { num: "100%", label: "натуральное дерево" },
+                { num: "3", label: "ЧПУ-станка в парке" },
+                { num: "500+", label: "выполненных заказов" },
+                { num: "0,1 мм", label: "точность фрезеровки" },
               ].map((stat, i) => (
                 <div key={i} className="text-center md:text-left">
                   <div className="font-display text-5xl md:text-6xl font-light text-wood-700 mb-2">
@@ -228,6 +245,36 @@ const Index = () => {
                   </div>
                   <div className="font-body text-sm text-muted-foreground tracking-wider uppercase">
                     {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Machines */}
+          <section className="py-8 pb-16 px-6 md:px-16 max-w-6xl mx-auto">
+            <div className="mb-10">
+              <p className="font-body text-xs text-muted-foreground tracking-[0.25em] uppercase mb-2">Наше оборудование</p>
+              <h2 className="font-display text-4xl md:text-5xl font-light">Парк станков</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {IMAGES.machines.map((machine, i) => (
+                <div
+                  key={i}
+                  className="group relative overflow-hidden cursor-pointer"
+                  onClick={() => setLightboxImg({ src: machine.src, title: machine.title })}
+                >
+                  <div style={{ aspectRatio: "4/3" }} className="overflow-hidden">
+                    <img
+                      src={machine.src}
+                      alt={machine.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-wood-950/0 group-hover:bg-wood-950/50 transition-all duration-400" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
+                    <p className="font-display text-wood-50 text-lg font-light mb-1">{machine.title}</p>
+                    <p className="font-body text-wood-200/70 text-xs">{machine.desc}</p>
                   </div>
                 </div>
               ))}
@@ -318,10 +365,10 @@ const Index = () => {
             <h2 className="font-display text-3xl md:text-4xl font-light mb-12">Как мы работаем</h2>
             <div className="grid md:grid-cols-4 gap-8">
               {[
-                { step: "01", label: "Обсуждение", desc: "Рассказываете о задаче, мы предлагаем решения" },
-                { step: "02", label: "Эскиз", desc: "Делаем чертёж и согласуем с вами" },
-                { step: "03", label: "Изготовление", desc: "Работаем с деревом в мастерской" },
-                { step: "04", label: "Доставка", desc: "Доставляем и устанавливаем на месте" },
+                { step: "01", label: "Задача", desc: "Присылаете файл, эскиз или описание — обсуждаем детали" },
+                { step: "02", label: "Программа", desc: "Подготавливаем управляющую программу для станка" },
+                { step: "03", label: "Фрезеровка", desc: "Запускаем ЧПУ — точная обработка материала" },
+                { step: "04", label: "Готово", desc: "Самовывоз или доставка по договорённости" },
               ].map((step, i) => (
                 <div key={i}>
                   <div className="font-display text-5xl font-light text-wood-200 mb-4">{step.step}</div>
