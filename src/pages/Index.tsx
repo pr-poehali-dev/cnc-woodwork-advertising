@@ -231,31 +231,10 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Stats */}
-          <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-12 md:gap-20">
-              {[
-                { num: "3", label: "ЧПУ-станка в парке" },
-                { num: "500+", label: "выполненных заказов" },
-                { num: "0,1 мм", label: "точность фрезеровки" },
-              ].map((stat, i) => (
-                <div key={i} className="text-center md:text-left">
-                  <div className="font-display text-5xl md:text-6xl font-light text-wood-700 mb-2">
-                    {stat.num}
-                  </div>
-                  <div className="font-body text-sm text-muted-foreground tracking-wider uppercase">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
           {/* Machines */}
-          <section className="py-8 pb-16 px-6 md:px-16 max-w-6xl mx-auto">
+          <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
             <div className="mb-10">
               <p className="font-body text-xs text-muted-foreground tracking-[0.25em] uppercase mb-2">Наше оборудование</p>
-              <h2 className="font-display text-4xl md:text-5xl font-light">Парк станков</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {IMAGES.machines.map((machine, i) => (
